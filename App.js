@@ -1,20 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import StackNav from './navigation/StackNav';
+import { setInitialRoute} from './api/auth/api.auth';
+import { useEffect, useState } from 'react';
+
 
 export default function App() {
+  const [initialRouteName, setInitialRouteName] = useState('Login');
+  useEffect(() => {
+    setInitialRouteName(setInitialRoute())
+  }, [])
+  
+
+  console.log(initialRouteName)
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+   <NavigationContainer>
+      <StackNav initialRoute={initialRouteName}></StackNav>
+   </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
